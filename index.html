@@ -304,7 +304,7 @@
         function setAdminUrls() {
           let x = 0
           endpoints.forEach(host => {
-            document.getElementById(`admin-link-${x++}`).href = `http://${host.ip}/admin/`
+            document.getElementById(`admin-link-${x++}`).href = `https://${host.ip}/`
           })
         }
 
@@ -312,6 +312,7 @@
         $table2.bootstrapTable({data: []})
 
         parseKeyVal()
+          
         
         setAdminUrls()
 
