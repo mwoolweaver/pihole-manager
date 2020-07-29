@@ -65,37 +65,6 @@
 
       const statusAction = 'status'
 
-      $('button').on('click', function() {
-        const action = this.getAttribute('data-action'),
-              time   = this.getAttribute('data-time');
-        
-        doAction(action, time);
-      })
-
-      function doAction(action, time) {
-
-        endpoints.forEach(host => {
-
-          let url = `http://${host.ip}/admin/api.php?auth=${host.auth}&${action}`
-
-          if (time) {
-            url += `=${time}`
-          }
-
-          fetch(url, {
-            mode: 'no-cors'
-          })
-
-          if (action === 'disable') {
-            enableOn()
-          } else {
-            enableOff()
-          }
-
-        })
-
-      }
-
       function requestInterval(fn, delay) {
         let start = new Date().getTime(),
             handle = {}
@@ -160,14 +129,6 @@
         return parseFloat(n.replace(',',''))
       }
 
-      function enableOff() {
-        $enable.text('Enabled').attr('disabled', true).addClass('btn-default')
-      }
-
-      function enableOn() {
-        $enable.text('ENABLE').attr('disabled', false).removeClass('btn-default')
-      }
-
       function summaryToKeyVal(data) {
 
         let ret = []
@@ -188,25 +149,9 @@
         return ret
       }
 
-      function parseKeyVal() {
-          endpoints[0].ip   = "<?php echo getenv('PI_ONE') ?>"
-          endpoints[1].ip   = "<?php echo getenv('PI_TWO') ?>"
-          endpoints[0].auth = "<?php echo getenv('PI_ONE_AUTH') ?>"
-          endpoints[1].auth = "<?php echo getenv('PI_TWO_AUTH') ?>"
-      }
-
-      function setAdminUrls() {
-        let x = 0
-        endpoints.forEach(host => {
-          document.getElementById(`admin-link-${x++}`).href = `https://${endpoints[x].ip}/`
-        })
-      }
-
       $table1.bootstrapTable({data: []})
       $table2.bootstrapTable({data: []})
 
-      parseKeyVal()
-      setAdminUrls()
       getData()
       updateStatus()
     })
