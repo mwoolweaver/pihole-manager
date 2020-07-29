@@ -19,139 +19,6 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-  <script>
-    const REFRESH = 2000
-
-    $(document).ready(() => {
-
-      const $enable = $('.enable'),
-            $unique_clients        = $('#unique_clients'),
-            $dns_queries_today     = $('#dns_queries_today'),
-            $ads_blocked_today     = $('#ads_blocked_today'),
-            $ads_percentage_today  = $('#ads_percentage_today'),
-            $domains_being_blocked = $('#domains_being_blocked'),
-            
-            $table1 = $('#table1'),
-            $table2 = $('#table2'),
-            
-            keymap = {
-              'domains_being_blocked': 'Domains',
-              'dns_queries_today': 'Queries',
-              'ads_blocked_today': 'Blocked',
-              'ads_percentage_today': 'Percent',
-              'unique_domains': 'Unique Domains',
-              'queries_forwarded': null,
-              'queries_cached': null,
-              'clients_ever_seen': null,
-              'unique_clients': 'Clients',
-              'dns_queries_all_types': 'Queries All',
-              'reply_NODATA': null,
-              'reply_NXDOMAIN': null,
-              'reply_CNAME': null,
-              'reply_IP': null,
-              'privacy_level': null,
-              'status': 'Status'
-            };
-      
-      const endpoints = [
-        {},
-        {}
-      ]
-
-      const summarypoints = [
-        './data/summary-1.json',
-        './data/summary-2.json'
-      ]
-
-      const statusAction = 'status'
-
-      function requestInterval(fn, delay) {
-        let start = new Date().getTime(),
-            handle = {}
-        function loop() {
-          handle.value = requestAnimationFrame(loop)
-          const current = new Date().getTime(),
-          delta = current - start
-          if (delta >= delay) {
-            fn.call()
-            start = new Date().getTime()
-          }
-        }
-        handle.value = requestAnimationFrame(loop)
-        return handle
-      }
-
-      function updateStatus(host) {
-        requestInterval(() => {
-          getData()
-        }, REFRESH)
-      }
-
-      async function getData() {
-
-        pi1data = await fetch(`${summarypoints[0]}`)
-        pi2data = await fetch(`${summarypoints[1]}`)
-        pi1sum = await pi1data.json()
-        pi2sum = await pi2data.json()
-
-        let clients = cleanNumber(pi1sum.unique_clients).toLocaleString()
-                        + ' / ' + 
-                      cleanNumber(pi2sum.unique_clients).toLocaleString()
-        let dns     = cleanNumber(pi1sum.dns_queries_today)     + cleanNumber(pi2sum.dns_queries_today)
-        let blocked = cleanNumber(pi1sum.ads_blocked_today)     + cleanNumber(pi2sum.ads_blocked_today)
-
-        let perc    = 
-              ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /
-              (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
-
-        let domains = cleanNumber(pi1sum.domains_being_blocked).toLocaleString() 
-                        + ' / ' + 
-                      cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
-
-        $unique_clients.text(clients)
-        $dns_queries_today.text(dns.toLocaleString())
-        $ads_blocked_today.text(blocked.toLocaleString())
-        $ads_percentage_today.text(Math.round(perc*10)/10 + "%")
-        $domains_being_blocked.text(domains)
-
-        $table1.bootstrapTable('load', summaryToKeyVal(pi1sum))
-        $table2.bootstrapTable('load', summaryToKeyVal(pi2sum))
-
-      }
-
-      function cleanNumber(n) {
-        return parseFloat(n.replace(',',''))
-      }
-
-      function summaryToKeyVal(data) {
-
-        let ret = []
-
-        for (let i in data) {
-
-          if (i in keymap && keymap[i] !== null) {
-
-            ret.push({
-              key: keymap[i],
-              val: data[i]
-            })
-
-          }
-
-        }
-
-        return ret
-      }
-
-      $table1.bootstrapTable({data: []})
-      $table2.bootstrapTable({data: []})
-
-      getData()
-      updateStatus()
-    })
-  </script>
-
-
 </head>
   <style type="text/css">
   body {
@@ -256,7 +123,138 @@
           </table>
         </div>
       </div>
-
     </div>
+
+    <script>
+      const REFRESH = 2000
+  
+      $(document).ready(() => {
+  
+        const $enable = $('.enable'),
+              $unique_clients        = $('#unique_clients'),
+              $dns_queries_today     = $('#dns_queries_today'),
+              $ads_blocked_today     = $('#ads_blocked_today'),
+              $ads_percentage_today  = $('#ads_percentage_today'),
+              $domains_being_blocked = $('#domains_being_blocked'),
+              
+              $table1 = $('#table1'),
+              $table2 = $('#table2'),
+              
+              keymap = {
+                'domains_being_blocked': 'Domains',
+                'dns_queries_today': 'Queries',
+                'ads_blocked_today': 'Blocked',
+                'ads_percentage_today': 'Percent',
+                'unique_domains': 'Unique Domains',
+                'queries_forwarded': null,
+                'queries_cached': null,
+                'clients_ever_seen': null,
+                'unique_clients': 'Clients',
+                'dns_queries_all_types': 'Queries All',
+                'reply_NODATA': null,
+                'reply_NXDOMAIN': null,
+                'reply_CNAME': null,
+                'reply_IP': null,
+                'privacy_level': null,
+                'status': 'Status'
+              };
+        
+        const endpoints = [
+          {},
+          {}
+        ]
+  
+        const summarypoints = [
+          './data/summary-1.json',
+          './data/summary-2.json'
+        ]
+  
+        const statusAction = 'status'
+  
+        function requestInterval(fn, delay) {
+          let start = new Date().getTime(),
+              handle = {}
+          function loop() {
+            handle.value = requestAnimationFrame(loop)
+            const current = new Date().getTime(),
+            delta = current - start
+            if (delta >= delay) {
+              fn.call()
+              start = new Date().getTime()
+            }
+          }
+          handle.value = requestAnimationFrame(loop)
+          return handle
+        }
+  
+        function updateStatus(host) {
+          requestInterval(() => {
+            getData()
+          }, REFRESH)
+        }
+  
+        async function getData() {
+  
+          pi1data = await fetch(`${summarypoints[0]}`)
+          pi2data = await fetch(`${summarypoints[1]}`)
+          pi1sum = await pi1data.json()
+          pi2sum = await pi2data.json()
+  
+          let clients = cleanNumber(pi1sum.unique_clients).toLocaleString()
+                          + ' / ' + 
+                        cleanNumber(pi2sum.unique_clients).toLocaleString()
+          let dns     = cleanNumber(pi1sum.dns_queries_today)     + cleanNumber(pi2sum.dns_queries_today)
+          let blocked = cleanNumber(pi1sum.ads_blocked_today)     + cleanNumber(pi2sum.ads_blocked_today)
+  
+          let perc    = 
+                ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /
+                (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
+  
+          let domains = cleanNumber(pi1sum.domains_being_blocked).toLocaleString() 
+                          + ' / ' + 
+                        cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
+  
+          $unique_clients.text(clients)
+          $dns_queries_today.text(dns.toLocaleString())
+          $ads_blocked_today.text(blocked.toLocaleString())
+          $ads_percentage_today.text(Math.round(perc*10)/10 + "%")
+          $domains_being_blocked.text(domains)
+  
+          $table1.bootstrapTable('load', summaryToKeyVal(pi1sum))
+          $table2.bootstrapTable('load', summaryToKeyVal(pi2sum))
+  
+        }
+  
+        function cleanNumber(n) {
+          return parseFloat(n.replace(',',''))
+        }
+  
+        function summaryToKeyVal(data) {
+  
+          let ret = []
+  
+          for (let i in data) {
+  
+            if (i in keymap && keymap[i] !== null) {
+  
+              ret.push({
+                key: keymap[i],
+                val: data[i]
+              })
+  
+            }
+  
+          }
+  
+          return ret
+        }
+  
+        $table1.bootstrapTable({data: []})
+        $table2.bootstrapTable({data: []})
+  
+        getData()
+        updateStatus()
+      })
+    </script>
   </body>
 </html>
