@@ -108,12 +108,6 @@
                         + ' / ' + 
                       cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
 
-        if (pi1sum.status === 'disabled' || pi2sum.status === 'disabled') {
-          enableOn()
-        } else {
-          enableOff()
-        }
-
         $unique_clients.text(clients)
         $dns_queries_today.text(dns.toLocaleString())
         $ads_blocked_today.text(blocked.toLocaleString())
