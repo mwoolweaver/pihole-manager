@@ -294,13 +294,11 @@
           return ret
         }
 
-        function parseKeyVal(key, val) {
-          switch (key) {
-            case 'PI_ONE'     : endpoints[0].ip   = val; break;
-            case 'PI_TWO'     : endpoints[1].ip   = val; break;
-            case 'PI_ONE_AUTH': endpoints[0].auth = val; break;
-            case 'PI_TWO_AUTH': endpoints[1].auth = val; break;
-          }
+        function parseKeyVal() {
+            endpoints[0].ip   = "<?php echo getenv('PI_ONE') ?>"
+            endpoints[1].ip   = "<?php echo getenv('PI_TWO') ?>"
+            endpoints[0].auth = "<?php echo getenv('PI_ONE_AUTH') ?>"
+            endpoints[1].auth = "<?php echo getenv('PI_TWO_AUTH') ?>"
         }
 
         function setAdminUrls() {
@@ -313,27 +311,12 @@
         $table1.bootstrapTable({data: []})
         $table2.bootstrapTable({data: []})
 
-        fetch('.env')
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error("HTTP error " + response.status)
-              }
-              return response.text()
-          })
-          .then(env => {
-            const lines = env.split('\n')
-            for (let line = 0; line < lines.length; line++) {
-              const keyval = lines[line].split('=')
-              if (keyval.length === 2) {
-                parseKeyVal(keyval[0], keyval[1])
-              }
-
-            }
-
-            setAdminUrls()
-            getData()
+        parseKeyVal()
+          .then(
+            setAdminUrls(),
+            getData(),
             updateStatus()
-          })
+          )
           .catch(function () {
               alert('Something bad happened.')
           })
