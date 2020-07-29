@@ -198,7 +198,7 @@
       function setAdminUrls() {
         let x = 0
         endpoints.forEach(host => {
-          document.getElementById(`admin-link-${x++}`).href = `https://${host.ip}/`
+          document.getElementById(`admin-link-${x++}`).href = `https://${endpoints[x].ip}/`
         })
       }
 
