@@ -312,15 +312,10 @@
         $table2.bootstrapTable({data: []})
 
         parseKeyVal()
-          .then(
-            setAdminUrls(),
-            getData(),
-            updateStatus()
-          )
-          .catch(function () {
-              alert('Something bad happened.')
-          })
+        
+        setAdminUrls()
 
+        getData()
       })
     </script>
   </body>
