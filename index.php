@@ -186,9 +186,9 @@
 
         function parseKeyVal() {
             endpoints[0].ip   = "<?php echo getenv('PI_ONE') ?>"
-            endpoints[1].ip   = "<?php echo $PI_TWO ?>"
-            endpoints[0].auth = "<?php echo $PI_ONE_AUTH ?>"
-            endpoints[1].auth = "<?php echo $PI_TWO_AUTH ?>"
+            endpoints[1].ip   = "<?php echo getenv('PI_TWO') ?>"
+            endpoints[0].auth = "<?php echo getenv('PI_ONE_AUTH') ?>"
+            endpoints[1].auth = "<?php echo getenv('PI_TWO_AUTH') ?>"
         }
         
         console.log(endpoints[0])
