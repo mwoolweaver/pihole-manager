@@ -191,7 +191,7 @@
             endpoints[1].auth = "<?php echo getenv('PI_TWO_AUTH') ?>"
         }
         
-        console.log(endpoints[0])
+        console.log(endpoints)
         parseKeyVal()
         getData()
         updateStatus()
