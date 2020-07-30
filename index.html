@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
   <link rel="icon" type="image/png" sizes="192x192"  href="logo.svg">
   <link rel="icon" type="image/png" sizes="96x96" href="logo.svg">
-  <title>Pi Hole Manager</title>
+  <title>Pi-hole® A black hole for Internet advertisements</title>
   <link href="style/vendor/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
   <body>
 
     <div class="container">
-      <h1 class="text-center">Pi Holes</h1>
+      <h1 class="text-center">Pi-holes</h1>
 
       <div class="row">
         <div class="col-lg-3 col-sm-6">
@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3 col-sm-6">
             <div class="small-box bg-aqua">
                 <div class="inner">
@@ -54,6 +55,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3 col-sm-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
@@ -65,6 +67,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3 col-sm-6">
             <div class="small-box bg-red">
                 <div class="inner">
@@ -90,6 +93,7 @@
             </thead>
           </table>
         </div>
+
         <div class="col-sm-6">
           <a href="https://ns3.sunderedheart.woolweaver.bid" target="_blank" class="btn btn-link" id="admin-link-1">ns3</a>
           <table id="table2" class="keyval-table table table-condensed">
@@ -101,7 +105,9 @@
             </thead>
           </table>
         </div>
+
       </div>
+
     </div>
 
     <script>
@@ -109,8 +115,7 @@
   
       $(document).ready(() => {
   
-        const $enable = $('.enable'),
-              $unique_clients        = $('#unique_clients'),
+        const $unique_clients        = $('#unique_clients'),
               $dns_queries_today     = $('#dns_queries_today'),
               $ads_blocked_today     = $('#ads_blocked_today'),
               $ads_percentage_today  = $('#ads_percentage_today'),
@@ -125,16 +130,16 @@
                 'ads_blocked_today': 'Blocked',
                 'ads_percentage_today': 'Percent',
                 'unique_domains': 'Unique Domains',
-                'queries_forwarded': null,
-                'queries_cached': null,
+                'queries_forwarded': 'Forwarded Queries',
+                'queries_cached': "Cached Queries",
                 'clients_ever_seen': null,
+                'dns_queries_all_types': 'All Queries',
                 'unique_clients': 'Clients',
-                'dns_queries_all_types': 'Queries All',
                 'reply_NODATA': null,
                 'reply_NXDOMAIN': null,
                 'reply_CNAME': null,
                 'reply_IP': null,
-                'privacy_level': null,
+                'privacy_level': 'Privacy Level',
                 'status': 'Status'
               };
         
@@ -179,11 +184,9 @@
           pi1sum = await pi1data.json()
           pi2sum = await pi2data.json()
   
-          let clients = cleanNumber(pi1sum.unique_clients).toLocaleString()
-                          + ' / ' + 
-                        cleanNumber(pi2sum.unique_clients).toLocaleString()
-          let dns     = cleanNumber(pi1sum.dns_queries_today)     + cleanNumber(pi2sum.dns_queries_today)
-          let blocked = cleanNumber(pi1sum.ads_blocked_today)     + cleanNumber(pi2sum.ads_blocked_today)
+          let clients = cleanNumber(pi1sum.unique_clients).toLocaleString() + ' / ' + cleanNumber(pi2sum.unique_clients).toLocaleString()
+          let dns     = cleanNumber(pi1sum.dns_queries_today) + cleanNumber(pi2sum.dns_queries_today)
+          let blocked = cleanNumber(pi1sum.ads_blocked_today) + cleanNumber(pi2sum.ads_blocked_today)
   
           let perc    = 
                 ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /

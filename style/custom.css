@@ -1,9 +1,9 @@
 
 .small-box {
-    overflow: hidden;
+    overflow: scroll;
 }
 .small-box span {
-    text-overflow: ellipsis;
+    text-overflow: clip;
 }
 
 @media (min-width: 576px) {
@@ -27,7 +27,7 @@
 }
 
 .keyval-table {
-    background-color: #fefefe;
+    background-color: #333;
     overflow: hidden;
 }
 
