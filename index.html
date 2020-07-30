@@ -72,8 +72,8 @@
             <div class="small-box bg-red">
                 <div class="inner">
                     <p>Domains on Blocklist</p>
-                    <h3 class="statistic">ns1<span id="domains_being_blocked_pi1">?</span></h3>
-                    <h3 class="statistic">ns2<span id="domains_being_blocked_pi2">?</span></h3>
+                    <h3 class="statistic">ns1: <span id="domains_being_blocked_pi1">?</span></h3>
+                    <h3 class="statistic">ns2: <span id="domains_being_blocked_pi2">?</span></h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-ios-list"></i>
@@ -203,7 +203,7 @@
           $ads_blocked_today.text(blocked.toLocaleString())
           $ads_percentage_today.text(Math.round(perc*10)/10 + "%")
           $domains_being_blocked_pi1.text(domainsPI1)
-          $domains_being_blocked_pi2.text(domainsPI1)
+          $domains_being_blocked_pi2.text(domainsPI2)
   
           $table1.bootstrapTable('load', summaryToKeyVal(pi1sum))
           $table2.bootstrapTable('load', summaryToKeyVal(pi2sum))
