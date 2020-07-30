@@ -72,7 +72,8 @@
             <div class="small-box bg-red">
                 <div class="inner">
                     <p>Domains on Blocklist</p>
-                    <h3 class="statistic"><span id="domains_being_blocked">?</span></h3>
+                    <h3 class="statistic">ns1<span id="domains_being_blocked_pi1">?</span></h3>
+                    <h3 class="statistic">ns2<span id="domains_being_blocked_pi2">?</span></h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-ios-list"></i>
@@ -119,7 +120,8 @@
               $dns_queries_today     = $('#dns_queries_today'),
               $ads_blocked_today     = $('#ads_blocked_today'),
               $ads_percentage_today  = $('#ads_percentage_today'),
-              $domains_being_blocked = $('#domains_being_blocked'),
+              $domains_being_blocked_pi1 = $('#domains_being_blocked_pi1'),
+              $domains_being_blocked_pi2 = $('#domains_being_blocked_pi2'),
               
               $table1 = $('#table1'),
               $table2 = $('#table2'),
@@ -192,15 +194,16 @@
                 ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /
                 (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
   
-          let domains = cleanNumber(pi1sum.domains_being_blocked).toLocaleString() 
-                          + ' / ' + 
-                        cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
+          let domainsPI1 = cleanNumber(pi1sum.domains_being_blocked).toLocaleString() 
+
+          let domainsPI2 =  cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
   
           $unique_clients.text(clients)
           $dns_queries_today.text(dns.toLocaleString())
           $ads_blocked_today.text(blocked.toLocaleString())
           $ads_percentage_today.text(Math.round(perc*10)/10 + "%")
-          $domains_being_blocked.text(domains)
+          $domains_being_blocked_pi1.text(domainsPI1)
+          $domains_being_blocked_pi2.text(domainsPI1)
   
           $table1.bootstrapTable('load', summaryToKeyVal(pi1sum))
           $table2.bootstrapTable('load', summaryToKeyVal(pi2sum))
