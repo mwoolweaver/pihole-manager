@@ -194,9 +194,9 @@
                 ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /
                 (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
   
-          let domainsPI1 = cleanNumber(pi1sum.domains_being_blocked)
+          let domainsPI1 = cleanNumber(pi1sum.domains_being_blocked).toLocaleString()
 
-          let domainsPI2 =  cleanNumber(pi2sum.domains_being_blocked)
+          let domainsPI2 =  cleanNumber(pi2sum.domains_being_blocked).toLocaleString()
   
           $unique_clients.text(clients)
           $dns_queries_today.text(dns.toLocaleString())
