@@ -6,7 +6,7 @@
     text-overflow: clip;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 600px) {
     #domains_being_blocked {
         font-size: 25px;
     }
