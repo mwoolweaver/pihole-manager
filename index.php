@@ -200,6 +200,7 @@
         
         console.log(endpoints)
         parseKeyVal()
+        setAdminUrls()
         getData()
         updateStatus()
       })
