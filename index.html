@@ -136,12 +136,10 @@
           pi2sum = await pi2data.json()
   
           let clients = cleanNumber(pi1sum.unique_clients).toLocaleString() + ' / ' + cleanNumber(pi2sum.unique_clients).toLocaleString()
-          let dns     = cleanNumber(pi1sum.dns_queries_today) + cleanNumber(pi2sum.dns_queries_today)
+          let dns = cleanNumber(pi1sum.dns_queries_today) + cleanNumber(pi2sum.dns_queries_today)
           let blocked = cleanNumber(pi1sum.ads_blocked_today) + cleanNumber(pi2sum.ads_blocked_today)
   
-          let perc    = 
-                ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) /
-                (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
+          let perc = ((cleanNumber(pi1sum.ads_blocked_today)  + cleanNumber(pi2sum.ads_blocked_today)) / (cleanNumber(pi1sum.dns_queries_today)  + cleanNumber(pi2sum.dns_queries_today))) * 100
   
           let domainsPI1 = cleanNumber(pi1sum.domains_being_blocked).toLocaleString()
 
@@ -185,10 +183,21 @@
   
         $table1.bootstrapTable({data: []})
         $table2.bootstrapTable({data: []})
-  
+
+        function parseKeyVal(key, val) {
+            endpoints[0].ip   = "<?php echo $PI_ONE ?>"; break;
+            endpoints[1].ip   = "<?php echo $PI_TWO ?>"; break;
+            endpoints[0].auth = "<?php echo $PI_ONE_AUTH ?>"; break;
+            endpoints[1].auth = "<?php echo $PI_TWO_AUTH ?>"; break;
+        }
+        console.log(endpoints[0].ip)
         getData()
         updateStatus()
       })
     </script>
+    <?php $php_PI_ONE = getenv('PI_ONE'); ?>
+    <?php $php_PI_TWO = getenv('PI_TWO'); ?>
+    <?php $php_PI_ONE_AUTH = getenv('PI_ONE_AUTH'); ?>
+    <?php $php_PI_TWO_AUTH = getenv('PI_TWO_AUTH'); ?>
   </body>
 </html>
