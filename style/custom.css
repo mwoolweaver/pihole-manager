@@ -3,7 +3,7 @@
     white-space: initial;
 }
 .small-box span {
-    text-overflow: clip;
+    white-space: initial;
 }
 
 @media (min-width: 600px) {
