@@ -1,6 +1,6 @@
 
 .small-box {
-    overflow: clip;
+    white-space: initial;
 }
 .small-box span {
     text-overflow: clip;
