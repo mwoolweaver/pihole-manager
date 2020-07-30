@@ -33,7 +33,7 @@
 
       <div class="row">
         <div class="col-sm-6">
-          <a href="https://ns2.sunderedheart.woolweaver.bid" target="_blank" class="btn btn-link" id="admin-link-0">ns2</a>
+          <a href="" target="_blank" class="btn btn-link" id="admin-link-0">ns2</a>
           <table id="table1" class="keyval-table table table-condensed">
             <thead>
               <tr>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="col-sm-6">
-          <a href="https://ns3.sunderedheart.woolweaver.bid" target="_blank" class="btn btn-link" id="admin-link-1">ns3</a>
+          <a href="" target="_blank" class="btn btn-link" id="admin-link-1">ns3</a>
           <table id="table2" class="keyval-table table table-condensed">
             <thead>
               <tr>
@@ -189,6 +189,13 @@
             endpoints[1].ip   = "<?php echo getenv('PI_TWO') ?>"
             endpoints[0].auth = "<?php echo getenv('PI_ONE_AUTH') ?>"
             endpoints[1].auth = "<?php echo getenv('PI_TWO_AUTH') ?>"
+        }
+
+        function setAdminUrls() {
+          let x = 0
+          endpoints.forEach(host => {
+            document.getElementById(`admin-link-${x++}`).href = `http://${host.ip}/`
+          })
         }
         
         console.log(endpoints)
