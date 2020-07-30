@@ -27,10 +27,6 @@
   }
   </style>
   <body>
-  <?php $php_PI_ONE = getenv('PI_ONE'); ?>
-  <?php $php_PI_TWO = getenv('PI_TWO'); ?>
-  <?php $php_PI_ONE_AUTH = getenv('PI_ONE_AUTH'); ?>
-  <?php $php_PI_TWO_AUTH = getenv('PI_TWO_AUTH'); ?>
 
     <div class="container">
       <h1 class="text-center">Pi-holes</h1>
@@ -189,7 +185,7 @@
         $table2.bootstrapTable({data: []})
 
         function parseKeyVal() {
-            endpoints[0].ip   = <?php echo $PI_ONE ?>
+            endpoints[0].ip   = <?php echo getenv('PI_ONE') ?>
             endpoints[1].ip   = <?php echo $PI_TWO ?>
             endpoints[0].auth = <?php echo $PI_ONE_AUTH ?>
             endpoints[1].auth = <?php echo $PI_TWO_AUTH ?>
